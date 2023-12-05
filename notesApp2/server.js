@@ -8,25 +8,26 @@ app.use(express.urlencoded({extended: true}))
 
 app.get("/", (req, res) => {
   res.render("index.ejs", {
-    numberOfItterations: 50
+    
   })
 })
 
-app.get("/notes", (req, res) => {
-  const searchTerm = req.query.searchTerm;
-  const notes = getNotes(searchTerm)
+app.get("/notes", async (req, res) => {
+  
+  const notes = await getNotes()
   res.render("notes.ejs", {
     notes
   })
 })
 
-app.get("/notes/:id", (req, res) => {
+app.get("/notes/:id", async (req, res) => {
   const id = +req.params.id
-  const note = getNote(id)
+  const note = await getNote(id)
   if (!note){
     res.status(404).render("note404.ejs")
     return
   }
+
   res.render("note.ejs",{
     note
   })
@@ -36,16 +37,16 @@ app.get("/createNote", (req, res) => {
   res.render("createNote.ejs")
 })
 
-app.post("/notes", (req, res) => {
+app.post("/notes", async (req, res) => {
   const data = req.body
-  addNote(data)
+  await addNote(data)
   
   res.redirect("/notes");
 })
 
-app.post("/notes/:id/delete", (req, res) => {
+app.post("/notes/:id/delete", async (req, res) => {
   const id = +req.params.id
-  deleteNote(id)
+  await deleteNote(id)
 
   res.redirect("/notes");
 })

@@ -1,3 +1,17 @@
+import mysql from "mysql2"
+import dotenv from "dotenv"
+
+dotenv.config()
+
+const pool = mysql.createPool({
+    host: process.env.MYSQL_HOST,
+    user: process.env.MYSQL_USER,
+    password: process.env.MYSQL_PASSWORD,
+    database:process.env.MYSQL_DATABASE
+
+}).promise()
+
+
 let notes = [
     {
         id: 1,
@@ -13,25 +27,25 @@ let notes = [
     }
 ]
 
-export function getNotes(searchTerm) {
-    if(!searchTerm){
-        return notes;
-    }
-    return notes.filter(note => note.title.includes(searchTerm) || note.contents.includes(searchTerm))
+export async function getNotes() {
+    const [row] = await pool.query(`SELECT * FROM notes`)
+    return row
 }
 
-export function getNote(id) {
-    return notes.find(note => note.id === id)
+export async function getNote(id) {
+    const [row] = await pool.query(`SELECT * FROM notes WHERE id = ?`,[id])
+    return row[0]
 }
 
-export function addNote(note) {
-    notes.push({
-       ...note,
-       id: notes.length+1,
-       timestamp: Date.now()
-    })
+export async function addNote(note) {
+    const [result] = await pool.query(
+        `INSERT INTO notes (title, contents)
+        VALUES (?, ?)`,[note.title, note.contents]
+    )
 }
 
-export function deleteNote(id) {
-    notes = notes.filter((note) => note.id !== id);
+export async function deleteNote(id) {
+    const [result] = await pool.query(
+        `DELETE FROM notes WHERE id = ?`,[id]
+    )
 }
