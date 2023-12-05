@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Create Note</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' href='/style.css'>  
+</head>
+<body>
+
+
+        <h1>Create Note</h1>
+
+        <form action="/notes" method="post">
+
+            <label for="titleInput"> Title </label>
+            <input type="text" id="titleInput" name="title">
+
+            <label for="contentsInput">Contents</label>
+            <textarea name="contents" id="contentsInput" cols="30" rows="10"></textarea>
+
+            <button type="submit">Create Note</button>
+        </form>
+    
+</body>
+</html>
