@@ -13,3 +13,6 @@ VALUES
 ("My First Note", "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum maxime sunt aliquam adipisci voluptate inventore esse beatae? Placeat eum rerum, quae repellat aliquid similique facere molestiae saepe doloribus consequuntur minima."),
 ("My Second Note", "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum maxime sunt aliquam adipisci voluptate inventore esse beatae? Placeat eum rerum, quae repellat aliquid similique facere molestiae saepe doloribus consequuntur minima.");
 
+INSERT INTO users (username, email, password) 
+VALUES
+("sektor7k","omeraydin2112@gmail.com", "35572277Om");
